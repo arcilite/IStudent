@@ -11,7 +11,7 @@
 #import "Engine.h"
 #import "AppDelegate.h"
 #include <QuartzCore/QuartzCore.h>
-
+#import "DataSource.h"
 static Engine *sharedEngine = nil;
 
 @implementation Engine
@@ -68,8 +68,7 @@ static Engine *sharedEngine = nil;
 -(void)loadEngine
 {   
     NSLog(@"333");
-    
-    
+     datasource = [[DataSource alloc]init];    
     
 }
 

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		183BDDCD15C6B41F0071339F /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BDDCB15C6B41F0071339F /* SettingsViewController.m */; };
+		183BDDCE15C6B41F0071339F /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 183BDDCC15C6B41F0071339F /* SettingsViewController.xib */; };
+		183BDDD515C6E0270071339F /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 183BDDD415C6E0270071339F /* SFHFKeychainUtils.m */; };
+		183BDDDB15C6F50F0071339F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183BDDDA15C6F50E0071339F /* Security.framework */; };
 		1879FB50157A818F001F8FE0 /* DetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1879FB4F157A818F001F8FE0 /* DetailCell.m */; };
 		1879FB52157A81BC001F8FE0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1879FB51157A81BC001F8FE0 /* EventKit.framework */; };
 		1879FB56157BF07F001F8FE0 /* date.png in Resources */ = {isa = PBXBuildFile; fileRef = 1879FB53157BF07E001F8FE0 /* date.png */; };
@@ -119,6 +123,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		183BDDCA15C6B41F0071339F /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsViewController.h; path = UI/SettingsViewControlllers/SettingsViewController.h; sourceTree = "<group>"; };
+		183BDDCB15C6B41F0071339F /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsViewController.m; path = UI/SettingsViewControlllers/SettingsViewController.m; sourceTree = "<group>"; };
+		183BDDCC15C6B41F0071339F /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SettingsViewController.xib; path = UI/SettingsViewControlllers/SettingsViewController.xib; sourceTree = "<group>"; };
+		183BDDD315C6E0270071339F /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SFHFKeychainUtils.h; path = Libs/Security/SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		183BDDD415C6E0270071339F /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SFHFKeychainUtils.m; path = Libs/Security/SFHFKeychainUtils.m; sourceTree = "<group>"; };
+		183BDDDA15C6F50E0071339F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1879FB4E157A818F001F8FE0 /* DetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailCell.h; path = UI/Cells/DetailCell.h; sourceTree = "<group>"; };
 		1879FB4F157A818F001F8FE0 /* DetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailCell.m; path = UI/Cells/DetailCell.m; sourceTree = "<group>"; };
 		1879FB51157A81BC001F8FE0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -335,6 +345,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				183BDDDB15C6F50F0071339F /* Security.framework in Frameworks */,
 				1879FB52157A81BC001F8FE0 /* EventKit.framework in Frameworks */,
 				18800A37157A268C00936CE1 /* libxml2.dylib in Frameworks */,
 				84853D031577AB4000A6A0B1 /* CoreData.framework in Frameworks */,
@@ -347,6 +358,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		183BDDC915C6ACB80071339F /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				183BDDCA15C6B41F0071339F /* SettingsViewController.h */,
+				183BDDCB15C6B41F0071339F /* SettingsViewController.m */,
+				183BDDCC15C6B41F0071339F /* SettingsViewController.xib */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		1879FB4B157A8143001F8FE0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -614,6 +635,8 @@
 		84981B36157754BF001EA17E /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				183BDDD315C6E0270071339F /* SFHFKeychainUtils.h */,
+				183BDDD415C6E0270071339F /* SFHFKeychainUtils.m */,
 				844D32711577B0FB0081DDB0 /* GData */,
 				844D32591577B0DA0081DDB0 /* TapkuLibrary */,
 			);
@@ -623,6 +646,7 @@
 		84D68CC81573D2AA00E6C137 = {
 			isa = PBXGroup;
 			children = (
+				183BDDDA15C6F50E0071339F /* Security.framework */,
 				1879FB51157A81BC001F8FE0 /* EventKit.framework */,
 				84D68CDD1573D2AA00E6C137 /* iStudent */,
 				84D68CD61573D2AA00E6C137 /* Frameworks */,
@@ -683,7 +707,7 @@
 		84D68CF21573D54000E6C137 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				84D68D181573E63200E6C137 /* ListLessonsVC.m */,
+				183BDDC915C6ACB80071339F /* Settings */,
 				1879FB4B157A8143001F8FE0 /* Views */,
 				84D68D0C1573DE1300E6C137 /* ListLessons */,
 				84D68D0B1573DE0400E6C137 /* HomeworkVC */,
@@ -755,6 +779,7 @@
 		84D68D0C1573DE1300E6C137 /* ListLessons */ = {
 			isa = PBXGroup;
 			children = (
+				84D68D181573E63200E6C137 /* ListLessonsVC.m */,
 				84D68D171573E63200E6C137 /* ListLessonsVC.h */,
 				84D68D191573E63200E6C137 /* ListLessonsVC.xib */,
 			);
@@ -821,6 +846,7 @@
 				1879FB57157BF07F001F8FE0 /* book.png in Resources */,
 				1879FB58157BF07F001F8FE0 /* events.png in Resources */,
 				844D3378157E4DAF0081DDB0 /* notepad.png in Resources */,
+				183BDDCE15C6B41F0071339F /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,6 +950,8 @@
 				1879FB50157A818F001F8FE0 /* DetailCell.m in Sources */,
 				187EC4911584B39700644587 /* HomeworkCell.m in Sources */,
 				187EC4CE1596372E00644587 /* DataSource.m in Sources */,
+				183BDDCD15C6B41F0071339F /* SettingsViewController.m in Sources */,
+				183BDDD515C6E0270071339F /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

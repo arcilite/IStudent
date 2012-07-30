@@ -50,6 +50,7 @@
     
     //subclasses could overwrite
     return [APPLICATION_DOCUMENTS_DIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[[modelName stringByDeletingPathExtension] stringByAppendingPathExtension:@"sqlite"]]];
+    NSLog(@"%@",[APPLICATION_DOCUMENTS_DIRECTORY stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[[modelName stringByDeletingPathExtension] stringByAppendingPathExtension:@"sqlite"]]]);
 }
 
 - (void) loadFetchedResultsControllers{

@@ -8,7 +8,7 @@
 
 #import "CalendarVC.h"
 #import "DetailCell.h"
-
+#import "SFHFKeychainUtils.h"
 #define KEY_CALENDAR @"calendar"
 #define KEY_EVENTS @"events"
 #define KEY_TICKET @"ticket"
@@ -23,9 +23,18 @@
         // Custom initialization
         
         self.view.backgroundColor = [UIColor whiteColor];
-        
-        username = @"tork.the.knight@gmail.com";
-        password = @"q700649";
+        NSString *loginValue = [[NSUserDefaults standardUserDefaults]
+                                stringForKey:@"login"];
+        if(loginValue){
+        username = loginValue;
+        password = [SFHFKeychainUtils getPasswordForUsername: loginValue andServiceName: @"myAdressBook" error: nil];
+        }else {
+            username = @" 4";
+            password =@" 4";
+            
+        }
+        NSLog(@"username %@",username);
+        NSLog(@"pass %@",password);
         calendarData = [[NSMutableArray alloc]init];
         events = [[NSMutableArray alloc]init];
         tableViewEvents = [[NSMutableArray alloc]init];

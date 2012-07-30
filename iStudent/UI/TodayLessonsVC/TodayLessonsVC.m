@@ -8,27 +8,36 @@
 
 #import "TodayLessonsVC.h"
 #import "DetailCell.h"
+#import "Settings.h"
+#import "SettingsViewController.h"
 @implementation TodayLessonsVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        
         todayTableView.delegate=self;
         [self.navigationController setNavigationBarHidden:NO animated:YES];
         navBar.topItem.title = @"Today";
-        UIBarButtonItem *settingsBarItem=[[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target: self action:@selector(share:)];      
-        //settingsBarItem.title=@"Setting";
-        self.navigationItem.leftBarButtonItem=settingsBarItem;
-        UIBarButtonItem *aboutBarItem=[[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target: self action:@selector(share:)];      
-        //settingsBarItem.title=@"Setting";
+        UIBarButtonItem *settingsBarItem=[[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target: self action:@selector(setingsAction:)];      
+          self.navigationItem.leftBarButtonItem=settingsBarItem;
+        UIBarButtonItem *aboutBarItem=[[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target: self action:@selector(aboutAction:)];      
+       
         self.navigationItem.rightBarButtonItem=aboutBarItem;
 
     }
     return self;
 }
+-(void)setingsAction:(id)button{
+    SettingsViewController * setingsViewController=[[SettingsViewController alloc]init];
+    [self.navigationController pushViewController:setingsViewController animated:YES];
+    [setingsViewController release];
+}
 
+-(void)aboutAction:(id)button{
+    
+}
 
 // Variable height support
 

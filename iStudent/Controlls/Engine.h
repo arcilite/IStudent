@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DataSource.h"
 
 @interface Engine : NSObject{  
 	
-    
+     DataSource *datasource;
 }
 
 
