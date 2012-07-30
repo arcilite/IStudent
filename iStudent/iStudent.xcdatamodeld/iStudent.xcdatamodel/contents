@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11D33" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Homework" syncable="YES">
+        <attribute name="dateToDo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="iD" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="subjectToDo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SubjectDay" inverseName="homework" inverseEntity="SubjectDay" syncable="YES"/>
+    </entity>
+    <entity name="StudentDay" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayOfWeak" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="iD" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="studentDay" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeOfWeak" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="subjectsinDay" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubjectDay" inverseName="subjectsinThisDay" inverseEntity="SubjectDay" syncable="YES"/>
+    </entity>
+    <entity name="Subject" syncable="YES">
+        <attribute name="iD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="inSubjectDay" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SubjectDay" inverseName="subjects" inverseEntity="SubjectDay" syncable="YES"/>
+        <relationship name="teacher" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Teacher" inverseName="subjects" inverseEntity="Teacher" syncable="YES"/>
+    </entity>
+    <entity name="SubjectDay" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="iD" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="room" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeEnd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeStart" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="homework" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Homework" inverseName="subjectToDo" inverseEntity="Homework" syncable="YES"/>
+        <relationship name="subjects" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Subject" inverseName="inSubjectDay" inverseEntity="Subject" syncable="YES"/>
+        <relationship name="subjectsinThisDay" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StudentDay" inverseName="subjectsinDay" inverseEntity="StudentDay" syncable="YES"/>
+    </entity>
+    <entity name="Teacher" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="facebookPage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fathername" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="iD" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="linkedinPage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photoPath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="skype" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="vkPage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="webpage" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="subjects" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subject" inverseName="teacher" inverseEntity="Subject" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Homework" positionX="-234" positionY="333" width="128" height="135"/>
+        <element name="StudentDay" positionX="90" positionY="306" width="128" height="135"/>
+        <element name="Subject" positionX="27" positionY="138" width="128" height="105"/>
+        <element name="SubjectDay" positionX="-72" positionY="306" width="128" height="180"/>
+        <element name="Teacher" positionX="-252" positionY="12" width="128" height="240"/>
+    </elements>
+</model>

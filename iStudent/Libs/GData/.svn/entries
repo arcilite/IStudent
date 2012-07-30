@@ -1,0 +1,49 @@
+10
+
+dir
+105
+svn://artem@192.168.1.2/NailMall/trunk/NaillMall%20v3/Classes/Controls/GData
+svn://artem@192.168.1.2/NailMall
+
+
+
+2011-11-14T13:46:47.098996Z
+84
+alex
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1ab55090-3205-e111-aa53-001cc0d04a85
+
+HTTPFetcher
+dir
+
+Networking
+dir
+
+BaseClasses
+dir
+
+common
+dir
+
+Calendar
+dir
+
+Elements
+dir
+
+XMLSupport
+dir
+
