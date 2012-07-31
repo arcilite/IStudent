@@ -11,6 +11,7 @@
 #import "Settings.h"
 #import "SettingsViewController.h"
 #import "Engine.h"
+#import"SFHFKeychainUtils.h"
 @implementation TodayLessonsVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -47,6 +48,8 @@
     NSString *todayDate = [NSString stringWithFormat:@"%02d:%02d:%02.0f", currentDate., currentDate.minute, currentDate.second];
    // NSDate *dateToday=[NSCaledarDate dateWithString:todayDate];
     NSLog(@"%@",todayDate);*/
+    
+    
     NSDate *currDate = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"YY-MM-dd"];

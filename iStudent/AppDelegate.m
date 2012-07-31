@@ -54,7 +54,8 @@
     } 
     
     self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2,navController3,navController4, nil];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2, nil];
+   // self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2,navController3,navController4, nil];
 
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
