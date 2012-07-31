@@ -12,11 +12,15 @@
 #import "AppDelegate.h"
 #include <QuartzCore/QuartzCore.h>
 #import "DataSource.h"
+#import "SFHFKeychainUtils.h"
 static Engine *sharedEngine = nil;
 
 @implementation Engine
-
-
+@synthesize datasource;
+@synthesize googleCalendarService;
+@synthesize calendarData;
+@synthesize events;
+@synthesize tableViewEvents;
 
 #pragma mark Singleton Methods
 
@@ -67,9 +71,11 @@ static Engine *sharedEngine = nil;
 
 -(void)loadEngine
 {   
+    NSString * username;
+    NSString * password;
+    datasource = [[DataSource alloc]init];   
     NSLog(@"333");
-     datasource = [[DataSource alloc]init];    
-    
+   
 }
 
 
@@ -77,7 +83,11 @@ static Engine *sharedEngine = nil;
 
 
 - (void)dealloc {
-   
+    [googleCalendarService release];
+    [calendarData release];
+    
+    [events release];
+    [tableViewEvents release];
     [super dealloc];
 }
 

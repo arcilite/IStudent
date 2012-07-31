@@ -10,19 +10,20 @@
 #import <EventKit/EventKit.h>
 #import "TKCalendarMonthView.h"
 #import "GDataCalendar.h"
+#import "Engine.h"
 
 @interface CalendarVC : UIViewController <TKCalendarMonthViewDelegate,TKCalendarMonthViewDataSource,
 UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
 	TKCalendarMonthView *calendarView;	
     
-    GDataServiceGoogleCalendar * googleCalendarService;
+    //GDataServiceGoogleCalendar * googleCalendarService;
     
     NSString * username;
     NSString * password;
     
-    NSMutableArray * calendarData;
-    NSMutableArray * events;
-    NSMutableArray * tableViewEvents;
+   // NSMutableArray * calendarData;
+   // NSMutableArray * events;
+   // NSMutableArray * tableViewEvents;
     UITableView * contentTableView;
     int selectedEvent;
 	

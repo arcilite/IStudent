@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "SFHFKeychainUtils.h"
+#import "Engine.h"
 @interface SettingsViewController ()
 
 @end
@@ -46,7 +47,8 @@
 }
 
 - (IBAction)saveAction:(id)sender {
-    NSString *loginValue = [[NSUserDefaults standardUserDefaults]
+    if (passwordTextField.text.length>0&&loginTextField.text.length>0) {
+        NSString *loginValue = [[NSUserDefaults standardUserDefaults]
                             stringForKey:@"login"];
     if(loginValue){
         
@@ -65,6 +67,19 @@
 								error: nil];
 
     [[NSUserDefaults standardUserDefaults] synchronize] ;
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Succesfull" message:@"Your Pasword succesfully saved" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
+    [alert release];
+    [en.googleCalendarService setUserCredentialsWithUsername:valueToSave
+                                                        password:passwordTextField.text];
+        [self.navigationController popViewControllerAnimated:YES];    
+    }else {
+        [[NSUserDefaults standardUserDefaults] synchronize] ;
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please input right data" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+        
+    }
     
 }
 

@@ -15,3 +15,4 @@
 #define APPLICATION_FRAME [[UIScreen mainScreen] bounds]
 
 #define SETTINGS_ROOT_PLIST_PATH [[NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"]] pathForResource:@"Root" ofType:@"plist"]
+#define en [Engine sharedEngine]

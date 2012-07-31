@@ -23,11 +23,12 @@
         // Custom initialization
         
         self.view.backgroundColor = [UIColor whiteColor];
+       
         NSString *loginValue = [[NSUserDefaults standardUserDefaults]
                                 stringForKey:@"login"];
         if(loginValue){
-        username = loginValue;
-        password = [SFHFKeychainUtils getPasswordForUsername: loginValue andServiceName: @"myAdressBook" error: nil];
+            username = loginValue;
+            password = [SFHFKeychainUtils getPasswordForUsername: loginValue andServiceName: @"myAdressBook" error: nil];
         }else {
             username = @" 4";
             password =@" 4";
@@ -35,16 +36,16 @@
         }
         NSLog(@"username %@",username);
         NSLog(@"pass %@",password);
-        calendarData = [[NSMutableArray alloc]init];
-        events = [[NSMutableArray alloc]init];
-        tableViewEvents = [[NSMutableArray alloc]init];
+        en.calendarData = [[NSMutableArray alloc]init];
+        en.events = [[NSMutableArray alloc]init];
+        en.tableViewEvents = [[NSMutableArray alloc]init];
         
-        googleCalendarService = [[GDataServiceGoogleCalendar alloc] init];
-        [googleCalendarService setUserAgent:@"DanBourque-GTUGDemo-1.0"];
-        [googleCalendarService setServiceShouldFollowNextLinks:NO];
+        en.googleCalendarService = [[GDataServiceGoogleCalendar alloc] init];
+        [en.googleCalendarService setUserAgent:@"DanBourque-GTUGDemo-1.0"];
+        [en.googleCalendarService setServiceShouldFollowNextLinks:NO];
         
-        [googleCalendarService setUserCredentialsWithUsername:username
-                                                     password:password]; 
+        [en.googleCalendarService setUserCredentialsWithUsername:username
+                                                        password:password];
         
         calendarView = nil;
         
@@ -73,6 +74,27 @@
     self.title = NSLocalizedString(@"Calendar", @"");
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    NSString *loginValue = [[NSUserDefaults standardUserDefaults]
+                            stringForKey:@"login"];
+    if(loginValue){
+        username = loginValue;
+        password = [SFHFKeychainUtils getPasswordForUsername: loginValue andServiceName: @"myAdressBook" error: nil];
+    }else {
+        username = @" 4";
+        password =@" 4";
+        
+    }
+    NSLog(@"username %@",username);
+    NSLog(@"pass %@",password);
+    [en.googleCalendarService setUserCredentialsWithUsername:username
+                                                    password:password];
+
+    [self refresh];
+    [self toggleCalendar];
+}
+
 - (void) toggleCalendar {
     
     if (!calendarView) {
@@ -95,7 +117,7 @@
     EKEventStore *eventDB = [[EKEventStore alloc] init];
     EKEvent *myEvent  = [EKEvent eventWithEventStore:eventDB];
     
-    GDataEntryCalendarEvent *event = [tableViewEvents objectAtIndex:selectedEvent];
+    GDataEntryCalendarEvent *event = [en.tableViewEvents objectAtIndex:selectedEvent];
     GDataWhen *when = [[event objectsForExtensionClass:[GDataWhen class]] objectAtIndex:0];
     if( when ){
         NSDate *date = [[when startTime] date];
@@ -145,9 +167,9 @@
 
 - (void)refresh{
     
-    [calendarData removeAllObjects];
+    [en.calendarData removeAllObjects];
     
-    [googleCalendarService fetchCalendarFeedForUsername:username
+    [en.googleCalendarService fetchCalendarFeedForUsername:username
                                                delegate:self
                                       didFinishSelector:@selector( calendarsTicket:finishedWithFeed:error: )];
 }
@@ -159,7 +181,7 @@
             GDataEntryCalendar *calendar = [[feed entries] objectAtIndex:i];
             
             NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
-            [calendarData addObject:dictionary];
+            [en.calendarData addObject:dictionary];
             
             [dictionary setObject:calendar forKey:KEY_CALENDAR];
             [dictionary setObject:[[NSMutableArray alloc] init] forKey:KEY_EVENTS];
@@ -177,7 +199,7 @@
                 [query setIsAscendingOrder:YES];
                 [query setShouldExpandRecurrentEvents:YES];
                 
-                GDataServiceTicket *ticket = [googleCalendarService fetchFeedWithQuery:query
+                GDataServiceTicket *ticket = [en.googleCalendarService fetchFeedWithQuery:query
                                                                               delegate:self
                                                                      didFinishSelector:@selector( eventsTicket:finishedWithEntries:error: )];
                 [dictionary setObject:ticket forKey:KEY_TICKET];
@@ -210,8 +232,8 @@
 - (void)eventsTicket:(GDataServiceTicket *)ticket finishedWithEntries:(GDataFeedCalendarEvent *)feed error:(NSError *)error{
     if( !error ){
         NSMutableDictionary *dictionary;
-        for( int section=0; section<[calendarData count]; section++ ){
-            NSMutableDictionary *nextDictionary = [calendarData objectAtIndex:section];
+        for( int section=0; section<[en.calendarData count]; section++ ){
+            NSMutableDictionary *nextDictionary = [en.calendarData objectAtIndex:section];
             GDataServiceTicket *nextTicket = [nextDictionary objectForKey:KEY_TICKET];
             if( nextTicket==ticket ){		// We've found the calendar these events are meant for...
                 dictionary = nextDictionary;
@@ -225,12 +247,12 @@
         int count = [[feed entries] count];
         
         for( int i=0; i<count; i++ ) {
-            [events addObject:[[feed entries] objectAtIndex:i]];
+            [en.events addObject:[[feed entries] objectAtIndex:i]];
         }
         
         NSURL *nextURL = [[feed nextLink] URL];
         if( nextURL ){
-            GDataServiceTicket *newTicket = [googleCalendarService fetchFeedWithURL:nextURL
+            GDataServiceTicket *newTicket = [en.googleCalendarService fetchFeedWithURL:nextURL
                                                                            delegate:self
                                                                   didFinishSelector:@selector( eventsTicket:finishedWithEntries:error: )];
             [dictionary setObject:newTicket forKey:KEY_TICKET];
@@ -251,8 +273,8 @@
 }
 
 - (NSDictionary *)dictionaryForIndexPath:(NSIndexPath *)indexPath{
-    if( indexPath.section<[calendarData count] )
-        return [calendarData objectAtIndex:indexPath.section];
+    if( indexPath.section<[en.calendarData count] )
+        return [en.calendarData objectAtIndex:indexPath.section];
     return nil;
 }
 
@@ -262,7 +284,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return [tableViewEvents count];
+    return [en.tableViewEvents count];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -280,8 +302,8 @@
     
     cell.date.text = cell.time.text = cell.name.text = cell.addr.text = @"";
     
-    if( indexPath.row<[tableViewEvents count] ){
-        GDataEntryCalendarEvent *event = [tableViewEvents objectAtIndex:indexPath.row];
+    if( indexPath.row<[en.tableViewEvents count] ){
+        GDataEntryCalendarEvent *event = [en.tableViewEvents objectAtIndex:indexPath.row];
         GDataWhen *when = [[event objectsForExtensionClass:[GDataWhen class]] objectAtIndex:0];
         if( when ){
             NSDate *date = [[when startTime] date];
@@ -315,18 +337,18 @@
 #pragma mark TKCalendarMonthViewDelegate methods
 
 - (void)calendarMonthView:(TKCalendarMonthView *)monthView didSelectDate:(NSDate *)d {
-    [tableViewEvents removeAllObjects];
+    [en.tableViewEvents removeAllObjects];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yy-MM-dd"];
     
-    for (id obj in events) {
+    for (id obj in en.events) {
         
         GDataWhen *when = [[obj objectsForExtensionClass:[GDataWhen class]] objectAtIndex:0];
         if( when ){
             
             if ([[dateFormatter stringFromDate:d] isEqualToString:[dateFormatter stringFromDate:[[when startTime] date]]]) {
                 
-                [tableViewEvents addObject:obj];
+                [en.tableViewEvents addObject:obj];
             }
         }
     }
@@ -337,18 +359,18 @@
 }
 
 - (void)calendarMonthView:(TKCalendarMonthView *)monthView monthDidChange:(NSDate *)d {
-    [tableViewEvents removeAllObjects];
+    [en.tableViewEvents removeAllObjects];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yy-MM-dd"];
     
-    for (id obj in events) {
+    for (id obj in en.events) {
         
         GDataWhen *when = [[obj objectsForExtensionClass:[GDataWhen class]] objectAtIndex:0];
         if( when ){
             
             if ([[dateFormatter stringFromDate:d] isEqualToString:[dateFormatter stringFromDate:[[when startTime] date]]]) {
                 
-                [tableViewEvents addObject:obj];
+                [en.tableViewEvents addObject:obj];
             }
         }
     }
@@ -368,7 +390,7 @@
     
     NSArray *data;
     NSMutableArray * arr = [[[NSMutableArray alloc]init]autorelease];
-	for (id obj in events) {
+	for (id obj in en.events) {
         
         GDataWhen *when = [[obj objectsForExtensionClass:[GDataWhen class]] objectAtIndex:0];
         if(when){
@@ -419,11 +441,11 @@
 
 - (void)dealloc {
 	[calendarView release];
-    [googleCalendarService release];
-    [calendarData release];
+    //[googleCalendarService release];
+    //[calendarData release];
     [contentTableView release];
-    [events release];
-    [tableViewEvents release];
+    //[events release];
+    //[tableViewEvents release];
     
     [super dealloc];
 }
