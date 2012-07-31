@@ -10,6 +10,7 @@
 #import "DetailCell.h"
 #import "Settings.h"
 #import "SettingsViewController.h"
+#import "Engine.h"
 @implementation TodayLessonsVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -39,6 +40,39 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+       
+    /*CFGregorianDate currentDate = CFAbsoluteTimeGetGregorianDate(CFAbsoluteTimeGetCurrent(), CFTimeZoneCopySystem());
+    NSString *todayDate = [NSString stringWithFormat:@"%02d:%02d:%02.0f", currentDate., currentDate.minute, currentDate.second];
+   // NSDate *dateToday=[NSCaledarDate dateWithString:todayDate];
+    NSLog(@"%@",todayDate);*/
+    NSDate *currDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"YY-MM-dd"];
+    NSString *dateString = [dateFormatter stringFromDate:currDate];
+    NSLog(@"%@",dateString);
+    /*NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yy-MM-dd"];*/
+    [en.todayEvents removeAllObjects];
+    for (id obj in en.events) {
+        
+        GDataWhen *when = [[obj objectsForExtensionClass:[GDataWhen class]] objectAtIndex:0];
+        if( when ){
+            
+            if ([dateString isEqualToString:[dateFormatter stringFromDate:[[when startTime] date]]]) {
+                
+                [en.todayEvents addObject:obj];
+            }
+        }
+    }
+    NSLog(@"%@",en.todayEvents);
+    [dateFormatter release];
+  //  [contentTableView reloadData];
+    //[self refresh];
+    //[self toggleCalendar];
+    [todayTableView reloadData];
+}
 // Variable height support
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -47,7 +81,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return  [en.todayEvents count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -65,11 +99,30 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    cell.date.text = @"5.06.2012";
+   /* cell.date.text = @"5.06.2012";
     cell.time.text = @"11.50";
     cell.name.text = @"K2 220";
-    cell.addr.text = @"Английский";
-    
+    cell.addr.text = @"Английский";*/
+    //[en.todayEvents removeAllObjects];
+    if( indexPath.row<[en.todayEvents count] ){
+        GDataEntryCalendarEvent *event = [en.todayEvents objectAtIndex:indexPath.row];
+        GDataWhen *when = [[event objectsForExtensionClass:[GDataWhen class]] objectAtIndex:0];
+        if( when ){
+            NSDate *date = [[when startTime] date];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            
+            [dateFormatter setDateFormat:@"dd-MM-yy"];
+            cell.date.text = [dateFormatter stringFromDate:date];
+            [dateFormatter setDateFormat:@"HH:mm"];
+            cell.time.text = [dateFormatter stringFromDate:date];
+            
+            [dateFormatter release];
+        }
+        cell.name.text = [[event title] stringValue];
+        GDataWhere *addr = [[event locations] objectAtIndex:0];
+        if( addr )
+            cell.addr.text = [addr stringValue];
+    }
         
     
     return cell;

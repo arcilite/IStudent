@@ -32,8 +32,8 @@
         name.font = [UIFont boldSystemFontOfSize:14];
         name.backgroundColor = [UIColor clearColor];
     
-        addr = [[UILabel alloc] initWithFrame:CGRectMake(70, 30, self.frame.size.width-20 , 40)];
-        addr.font = [UIFont boldSystemFontOfSize:30];
+        addr = [[UILabel alloc] initWithFrame:CGRectMake(90, 30, self.frame.size.width-20 , 40)];
+        addr.font = [UIFont boldSystemFontOfSize:20];
         addr.textColor = [UIColor darkGrayColor];
         addr.backgroundColor = [UIColor clearColor];
       

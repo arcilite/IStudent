@@ -21,7 +21,7 @@ static Engine *sharedEngine = nil;
 @synthesize calendarData;
 @synthesize events;
 @synthesize tableViewEvents;
-
+@synthesize todayEvents;
 #pragma mark Singleton Methods
 
 + (Engine*)sharedEngine
@@ -71,10 +71,11 @@ static Engine *sharedEngine = nil;
 
 -(void)loadEngine
 {   
-    NSString * username;
-    NSString * password;
+   
     datasource = [[DataSource alloc]init];   
+    todayEvents=[[NSMutableArray alloc]init];
     NSLog(@"333");
+    
    
 }
 

@@ -16,6 +16,7 @@
      NSMutableArray * calendarData;
      NSMutableArray * events;
      NSMutableArray * tableViewEvents;
+    NSMutableArray * todayEvents;
 
 }
 @property(nonatomic,retain)DataSource *datasource;
@@ -23,6 +24,7 @@
 @property(nonatomic,retain)NSMutableArray * calendarData;
 @property(nonatomic,retain)NSMutableArray * events;
 @property(nonatomic,retain)NSMutableArray * tableViewEvents;
+@property(nonatomic,retain) NSMutableArray * todayEvents;
 
 +(Engine*)sharedEngine;
 -(void)loadEngine;

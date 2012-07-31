@@ -91,8 +91,10 @@
     [en.googleCalendarService setUserCredentialsWithUsername:username
                                                     password:password];
 
-    [self refresh];
-    [self toggleCalendar];
+    //[self refresh];
+    //[self toggleCalendar];
+    [calendarView reload];
+    [contentTableView reloadData];
 }
 
 - (void) toggleCalendar {
